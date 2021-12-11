@@ -1,0 +1,64 @@
+
+
+swagger-ui:
+  image: swaggerapi/swagger-ui
+  container_name: swagger_ui_container
+  ports:
+    - "80:8080"
+  volumes:
+    - ./doc:/usr/share/nginx/html/doc
+  environment:
+    API_URL: doc/application.yaml
+
+
+
+
+
+  # docker build -t DOCKER_HUB_USERNAME/APPLICATION_NAME .
+  #   docker push DOCKER_HUB_USERNAME/APPLICATION_NAME
+
+
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: spring-boot-data-mongodb-master
+    labels:
+      app: spring-boot-data-mongodb-master
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: spring-boot-data-mongodb-master
+      spec:
+        containers:
+          - name: spring-boot-data-mongodb-master
+            image: sanni/spring-boot-data-mongodb-master
+            ports:
+              - containerPort: 8080
+
+
+ #The Deployment is up and running, but we need some way to access our pod from the outside world.
+#This is where a Service comes in. A Service provides external access to a set of Pods and decides which pod should handle the request.
+#The nodePort value can be left out if you want Kubernetes to assign a random NodePort to your service.
+#The nodePort value can be left out if you want Kubernetes to assign a random NodePort to your service.
+
+
+
+    ----
+
+    apiVersion: v1
+    kind: Service
+    metadata:
+      name: spring-boot-data-mongodb-master
+    spec:
+      type: NodePort
+      selector:
+        app: spring-boot-data-mongodb-master
+      ports:
+        - protocol: TCP
+          port: 8080
+          nodePort: 30011
+
+
+ #kubectl apply -f k8s/spring-boot-data-mongodb-master-application.yaml
+#The application is now accessible through http://IP_ADDRESS:NODE_PORT
