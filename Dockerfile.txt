@@ -1,0 +1,7 @@
+FROM openjdk:8
+COPY .om.bezkoder.spring.data.mongodb/spring-boot-data-mongodb-master/ /tmp
+WORKDIR /tmp
+ENTRYPOINT ["java","SpringBootDataMongodbApplication"]
+
+
+

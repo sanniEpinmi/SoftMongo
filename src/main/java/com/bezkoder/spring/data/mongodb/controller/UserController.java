@@ -2,6 +2,7 @@ package com.bezkoder.spring.data.mongodb.controller;
 
 import com.bezkoder.spring.data.mongodb.model.User;
 import com.bezkoder.spring.data.mongodb.repository.UserRepository;
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -57,7 +58,15 @@ import java.util.Optional;
                     if (responseEntity != null) {
                         if (responseEntity.getStatusCode().is2xxSuccessful() && responseEntity.getBody() != null) {
 
-                           // Gson gson = new Gson();
+                           Gson gson = new Gson();
+
+                          //  List<User> user2  = gson.fromJson(User,  User.class);
+
+//user2.stream().filter(user1 -> gson.fromJson();
+
+
+                            // return object
+
                             //User _user = userRepository.save(new User(user.getTitle(), tutorial.getDescription(), false));
 
                         }
